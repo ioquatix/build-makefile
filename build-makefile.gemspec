@@ -8,8 +8,7 @@ Gem::Specification.new do |spec|
 	spec.version       = Build::Makefile::VERSION
 	spec.authors       = ["Samuel Williams"]
 	spec.email         = ["samuel.williams@oriontransfer.co.nz"]
-	spec.description   = %q{TODO: Write a gem description}
-	spec.summary       = %q{TODO: Write a gem summary}
+	spec.summary       = %q{Build::Makefile is a simple Makefile parser and can be used to extract dependencies from compiler generated depfiles.}
 	spec.homepage      = ""
 	spec.license       = "MIT"
 
