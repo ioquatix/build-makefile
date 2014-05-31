@@ -18,11 +18,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require 'minitest/autorun'
-
 require 'build/makefile'
 
-class TestDepfile < MiniTest::Test
+module Build::Makefile::DepfileSpec
 	DEPFILE_TEXT = <<-EOF
 		target1: source1 source2 \
 			source3
@@ -33,16 +31,18 @@ class TestDepfile < MiniTest::Test
 			source4
 	EOF
 	
-	def test_parser
-		depfile = Build::Makefile.parse(DEPFILE_TEXT)
-		
-		assert_equal 3, depfile.rules.count
-		assert_includes depfile, "target1"
-		assert_includes depfile, "target2"
-		assert_includes depfile, "target3"
-		
-		assert_equal %w{source1 source2 source3}, depfile["target1"]
-		assert_equal %w{}, depfile["target2"]
-		assert_equal %w{source4}, depfile["target3"]
+	describe Build::Makefile do
+		it "should parse sample depfile" do
+			depfile = Build::Makefile.parse(DEPFILE_TEXT)
+			
+			expect(depfile.rules.count).to be 3
+			expect(depfile).to include "target1"
+			expect(depfile).to include "target2"
+			expect(depfile).to include "target3"
+			
+			expect(depfile.rules["target1"]).to be == %w{source1 source2 source3}
+			expect(depfile.rules["target2"]).to be == %w{}
+			expect(depfile.rules["target3"]).to be == %w{source4}
+		end
 	end
 end

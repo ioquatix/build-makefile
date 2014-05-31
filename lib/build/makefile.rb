@@ -34,11 +34,11 @@ module Build
 		attr :rules
 		
 		def [] target
-			dependencies = @rules[Files::Path.new(target.relative_path)]
+			dependencies = @rules[target.relative_path]
 			
 			if dependencies
 				Files::Paths.new(
-					dependencies.collect{|dep| dep.to_absolute(target.root)}
+					dependencies.collect{|dep| Files::Path.new(dep).to_absolute(target.root)}
 				)
 			end
 		end
@@ -64,7 +64,7 @@ module Build
 					rule = [:rule]
 				
 					target = scanner[1].strip
-					rule << Files::Path.new(target)
+					rule << target
 				
 					# Parse dependencies:
 					dependencies = []
@@ -74,7 +74,7 @@ module Build
 						scanner.scan(SOURCE_PATH)
 						
 						# Need to remove escaped whitespace from path:
-						dependencies << Files::Path.new(scanner[0].gsub(/\\ /, ' '))
+						dependencies << scanner[0].gsub(/\\ /, ' ')
 					end
 					rule << dependencies
 				
