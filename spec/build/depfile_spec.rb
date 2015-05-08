@@ -36,9 +36,9 @@ module Build::Makefile::DepfileSpec
 			depfile = Build::Makefile.parse(DEPFILE_TEXT)
 			
 			expect(depfile.rules.count).to be 3
-			expect(depfile).to include "target1"
-			expect(depfile).to include "target2"
-			expect(depfile).to include "target3"
+			expect(depfile).to be_include "target1"
+			expect(depfile).to be_include "target2"
+			expect(depfile).to be_include "target3"
 			
 			expect(depfile.rules["target1"]).to be == %w{source1 source2 source3}
 			expect(depfile.rules["target2"]).to be == %w{}

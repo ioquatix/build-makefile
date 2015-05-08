@@ -44,8 +44,6 @@ module Build
 		end
 		
 		def include? target
-			target = Files::Path.new(target)
-			
 			@rules.include? target
 		end
 		
