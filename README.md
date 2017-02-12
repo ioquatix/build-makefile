@@ -22,6 +22,7 @@ Or install it yourself as:
 
 To parse a file:
 
+	> require 'build/makefile'
 	> makefile = Build::Makefile.load_file(path)
 	
 	# Access the rules defined by the makefile:
